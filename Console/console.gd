@@ -7,6 +7,7 @@ Developer Notes:
 	- 
 
 Todo:
+	- allow disable defualt commands via exprt var
 	- allow string arguments
 	- tab completion
 	- better help messages
@@ -43,9 +44,16 @@ func _ready() -> void:
 	output.set_scroll_follow(true)
 	output.set_focus_mode(FOCUS_NONE)
 	
+	# Set initial visibility
 	visible = false
 	if open_on_start:
 		visible = true
+	
+	# Add default commands
+	add_command('clear', self, null, [], 'clear the console', 'usage:\n\tclear')
+	add_command('help', self, null, [], 'display a commands help message', 'usage:\n\thelp <command name>')
+	add_command('exit', self, null, [], 'exit the console', 'usage:\n\texit')
+	add_command('quit', self, null, [], 'quit the game', 'usage:\n\tquit')
 
 
 func _physics_process(delta):
