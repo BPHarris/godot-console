@@ -40,7 +40,7 @@ If a result is returned, it will be printed to the console.
 Example:
 ```GDScript
 func _read() -> void:
-    $console.add_command(
+    console.add_command(
         'my_command',
         self,
         '_my_command',
@@ -63,7 +63,7 @@ func _my_command(x: int, s: String) -> CommandResponse:
 Worked example of an echo command:
 ```GDScript
 func _ready() -> void:
-    $console.add_command(
+    console.add_command(
         'echo',
         self,
         '_echo_to_console',
