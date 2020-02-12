@@ -10,12 +10,24 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "Command",
+"language": "GDScript",
+"path": "res://Autoload/command.gd"
+}, {
+"base": "Node",
 "class": "CommandResponse",
 "language": "GDScript",
-"path": "res://command_response.gd"
+"path": "res://Autoload/command_response.gd"
+}, {
+"base": "Control",
+"class": "Console",
+"language": "GDScript",
+"path": "res://console.gd"
 } ]
 _global_script_class_icons={
-"CommandResponse": ""
+"Command": "",
+"CommandResponse": "",
+"Console": ""
 }
 
 [application]
