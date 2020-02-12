@@ -7,7 +7,10 @@ Developer Notes:
 	- 
 
 Todo:
-	- 
+	- allow string arguments
+	- tab completion
+	- better help messages
+	- refactor
 
 """
 
@@ -15,10 +18,10 @@ extends Control
 class_name Console
 
 export(int) var font_size = 24
-export(float) var opacity = 0.2
 
 
 var commands := {}
+var console_output_text := ''
 
 
 onready var output := $container/output
@@ -26,21 +29,25 @@ onready var input := $container/input
 
 
 func _ready() -> void:
+	# Set resize handler
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
 	
-#	# TODO Set font sizes
-#	self.input.get("custom_fonts/font").set_size(self.font_size)
-#	self.output.get("custom_fonts/font").set_size(self.font_size)
-	
+	# Set console size
 	_on_screen_resized()
 
 
+func _process(delta):
+	# Make the console output text monospace at all times
+	self.output.bbcode_text = '[code]{text}[/code]'.format({'text': self.console_output_text})
+
+
 func _on_input_text_entered(new_text: String) -> void:
-	"""TODO: Auto-generate stub."""
+	"""TODO: Auto-generated stub."""
 	pass
 
 
 func _on_screen_resized():
+	"""Resize the console to full-screen, with the input at the bottom."""
 	var window := get_viewport().size
 	
 	# Set output size and position
