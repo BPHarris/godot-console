@@ -39,7 +39,7 @@ If a result is returned, it will be printed to the console.
 
 Example:
 ```GDScript
-func _read() -> void:
+func _read():
     console.add_command(
         'my_command',
         self,
