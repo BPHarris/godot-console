@@ -112,7 +112,6 @@ func clear() -> CommandResponse:
 	"""Clear the console."""
 	input.text = ''
 	console_output_text = ''
-	return CommandResponse.new(CommandResponse.ResponseType.EMPTY)
 	return CommandResponse.new()
 
 
