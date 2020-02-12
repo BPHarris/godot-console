@@ -10,6 +10,12 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+font_size = null
+input_action_toggle_console = null
+input_action_exit_console = null
+input_action_history_up = null
+input_action_history_down = null
+open_on_start = null
 
 [node name="container" type="VBoxContainer" parent="."]
 anchor_right = 1.0

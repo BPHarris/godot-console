@@ -39,6 +39,10 @@ func _ready() -> void:
 	# Set console size
 	_on_screen_resized()
 	
+	# Set output scroll follow and disable output selection
+	output.set_scroll_follow(true)
+	output.set_focus_mode(FOCUS_NONE)
+	
 	visible = false
 	if open_on_start:
 		visible = true
