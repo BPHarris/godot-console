@@ -33,14 +33,14 @@ func _init(type = ResponseType.RESULT, text: String = '') -> void:
 func get_response() -> String:
 	"""Return the printable response text."""
 	# If it is an EMPTY respose, return nothing
-	if self.type == ResponseType.EMPTY:
+	if type == ResponseType.EMPTY:
 		return ''
 	
 	# If it is an ERROR, prefix 'error'
-	if self.type == ResponseType.ERROR:
-		return 'error: {text}'.format({'text': self.text})
+	if type == ResponseType.ERROR:
+		return 'error: {text}'.format({'text': text})
 	
 	# If it is a RESULT, prefix 'result'
-	if self.type == ResponseType.RESULT:
-		return 'result: {text}'.format({'text': self.text})
+	if type == ResponseType.RESULT:
+		return 'result: {text}'.format({'text': text})
 	return ''
