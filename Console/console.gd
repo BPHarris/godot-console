@@ -114,3 +114,18 @@ func clear() -> CommandResponse:
 	console_output_text = ''
 	return CommandResponse.new(CommandResponse.ResponseType.EMPTY)
 	return CommandResponse.new()
+
+
+func help(command_name: String) -> CommandResponse:
+	"""Display the commands help string."""
+	# If command name, display help's help message
+	if not command_name:
+		return help('help')
+	
+	var command : Command = commands.get(command_name, null)
+	
+	# If no such command, return error
+	if not command:
+		return CommandResponse.new(CommandResponse.ResponseType.ERROR, 'no command %s' % command_name)
+	
+	return CommandResponse.new(CommandResponse.ResponseType.RESULT, '%s\n%s' % [command.description, command.help])
