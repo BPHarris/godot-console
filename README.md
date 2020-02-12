@@ -1,7 +1,7 @@
 # godot-console <!-- omit in toc -->
 A simple Source-enigine inspired game console for Godot.
 
-N.B.: Work-in-progress -- not in a functional state.
+**N.B.: Work-in-progress -- not in a functional state.**
 
 - [Adding to a Godot Project](#adding-to-a-godot-project)
 - [Usage](#usage)
@@ -10,14 +10,14 @@ N.B.: Work-in-progress -- not in a functional state.
 - [Default Commands](#default-commands)
 
 # Adding to a Godot Project
-    1. Copy the `./Console` directory into your Godot project.
-    2. Add an instance of `Console.tscn` to your scene's root node.
-    3. Ensure that your Godot project has keys assigned to:
-       1. 'dev_toggle_console' -- to toggle the console open/closed
-       2. 'ui_cancel' -- to close the console   (NB: assigned by default)
-       3. 'ui_up' -- to navigate up in command history  (NB: assigned by default)
-       4. 'ui_down' -- to navigate down in command history  (NB: assigned by default)
-       5. 'ui_enter' -- to enter a command  (NB: assigned by default)
+1. Copy the `./Console` directory into your Godot project.
+2. Add an instance of `Console.tscn` to your scene's root node.
+3. Ensure that your Godot project has keys assigned to:
+    1. 'dev_toggle_console' -- to toggle the console open/closed
+    2. 'ui_cancel' -- to close the console   (NB: assigned by default)
+    3. 'ui_up' -- to navigate up in command history  (NB: assigned by default)
+    4. 'ui_down' -- to navigate down in command history  (NB: assigned by default)
+    5. 'ui_enter' -- to enter a command  (NB: assigned by default)
 
 # Usage
 To use the console, simply press the 'dev_toggle_console' key to open the console,
