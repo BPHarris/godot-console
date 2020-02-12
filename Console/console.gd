@@ -128,3 +128,9 @@ func help(command_name: String) -> CommandResponse:
 		return CommandResponse.new(CommandResponse.ResponseType.ERROR, 'no command %s' % command_name)
 	
 	return CommandResponse.new(CommandResponse.ResponseType.RESULT, '%s\n%s' % [command.description, command.help])
+
+
+func exit() -> CommandResponse:
+	"""Faux-close the current console instance."""
+	self.visible = false
+	return clear()
