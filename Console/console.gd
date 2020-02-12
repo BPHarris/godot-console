@@ -106,3 +106,10 @@ func _on_screen_resized():
 	input.set_begin(Vector2(0, window.y - font_size))
 	input.set_end(Vector2(window.x, font_size))
 	print('input: ', input.get_begin(), ', ', input.get_end())
+
+
+func clear() -> CommandResponse:
+	"""Clear the console."""
+	input.text = ''
+	console_output_text = ''
+	return CommandResponse.new(CommandResponse.ResponseType.EMPTY)
