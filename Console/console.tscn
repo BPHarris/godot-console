@@ -1,21 +1,32 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://console.gd" type="Script" id=1]
+[ext_resource path="res://console.tres" type="Theme" id=2]
 
 [node name="console" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+font_size = 32
 
 [node name="container" type="VBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
 
 [node name="output" type="RichTextLabel" parent="container"]
-margin_right = 58.0
+margin_right = 1024.0
+margin_bottom = 500.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "initial"
+text = "initial"
+scroll_following = true
 
 [node name="input" type="LineEdit" parent="container"]
 margin_top = 4.0
-margin_right = 58.0
+margin_right = 1024.0
 margin_bottom = 28.0
+theme = ExtResource( 2 )
+text = "test"
 [connection signal="text_entered" from="container/input" to="." method="_on_input_text_entered"]
