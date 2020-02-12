@@ -134,3 +134,9 @@ func exit() -> CommandResponse:
 	"""Faux-close the current console instance."""
 	self.visible = false
 	return clear()
+
+
+func quit() -> CommandResponse:
+	"""Quit the game."""
+	get_tree().quit()
+	return CommandResponse.new()
