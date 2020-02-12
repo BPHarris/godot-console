@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "Console",
 "language": "GDScript",
 "path": "res://console.gd"
+}, {
+"base": "Node",
+"class": "Types",
+"language": "GDScript",
+"path": "res://Autoload/types.gd"
 } ]
 _global_script_class_icons={
 "Command": "",
 "CommandResponse": "",
-"Console": ""
+"Console": "",
+"Types": ""
 }
 
 [application]
