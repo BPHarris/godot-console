@@ -73,6 +73,12 @@ func _physics_process(delta):
 	output.bbcode_text = '[code]{text}[/code]'.format({'text': console_output_text})
 
 
+func add_command(command_name: String, parent_node: Node, function_name: String = '', command_arguments: Array = [], description: String = '', help: String = '') -> void:
+	if not function_name:
+		function_name = command_name
+	commands[command_name] = Command.new(command_name, parent_node, function_name, command_arguments, description, help)
+
+
 func _on_toggle_console() -> void:
 	"""Toggle the console."""
 	visible = !visible
