@@ -10,7 +10,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-font_size = 32
 
 [node name="container" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -18,8 +17,7 @@ anchor_bottom = 1.0
 theme = ExtResource( 2 )
 
 [node name="output" type="RichTextLabel" parent="container"]
-margin_right = 500.0
-margin_bottom = 500.0
+margin_right = 1024.0
 theme = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "initial [color=red]test[/color]"
