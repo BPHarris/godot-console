@@ -37,6 +37,8 @@ Custom command arguments:
 
 If a result is returned, it will be printed to the console.
 
+Typing info omitted in examples for better syntax highlighting on GitHub.
+
 Example:
 ```GDScript
 func _read():
@@ -49,7 +51,7 @@ func _read():
         'usage:\n\tmy_command <int: x> <string: s>'
     )
 
-func _my_command(x: int, s: String) -> CommandResponse:
+func _my_command(x, s):
     # Your command logic here
     ...
 
@@ -62,9 +64,9 @@ func _my_command(x: int, s: String) -> CommandResponse:
 
 Worked example of an echo command:
 ```GDScript
-func _ready() -> void:
+func _ready():
     console.add_command(
-        'echo',
+        "echo",
         self,
         '_echo_to_console',
         ['output', TYPE_STRING],
@@ -72,7 +74,7 @@ func _ready() -> void:
         'usage:\n\techo <string>'
     )
 
-func _echo_to_console(output: String = '') -> CommandResponse:
+func _echo_to_console(output = ''):
     return CommandResponse.new(CommandResponse.ResponseType.RESULT, output)
 ```
 
