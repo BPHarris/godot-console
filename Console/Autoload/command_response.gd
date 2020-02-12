@@ -25,7 +25,7 @@ var type # type: ResponseType
 var text : String
 
 
-func _init(type = ResponseType.RESULT, text: String = '') -> void:
+func _init(type = ResponseType.EMPTY, text: String = '') -> void:
 	self.type = type
 	self.text = text
 
