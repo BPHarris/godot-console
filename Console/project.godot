@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Command",
 "language": "GDScript",
-"path": "res://Autoload/command.gd"
+"path": "res://Source/command.gd"
 }, {
 "base": "Node",
 "class": "CommandResponse",
 "language": "GDScript",
-"path": "res://Autoload/command_response.gd"
+"path": "res://Source/command_response.gd"
 }, {
 "base": "Control",
 "class": "Console",
@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Types",
 "language": "GDScript",
-"path": "res://Autoload/types.gd"
+"path": "res://Source/types.gd"
 } ]
 _global_script_class_icons={
 "Command": "",
