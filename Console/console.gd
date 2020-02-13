@@ -65,7 +65,7 @@ func _ready() -> void:
 	# Set initial visibility
 	visible = false
 	if open_on_start:
-		visible = true
+		_on_toggle_console()
 	
 	_add_default_commands()
 
