@@ -1,6 +1,7 @@
 
 # 
 project.godot
+Console/default_env.tres
 
 # Godot-specific ignores
 .import/
