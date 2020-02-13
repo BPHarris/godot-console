@@ -94,18 +94,23 @@ func add_command(command_name: String, parent_node: Node, function_name: String 
 		description = 'no description given'
 	
 	if not help:
-		help = 'usage:  {pattern}  --  {description}'
+		help = '[color=yellow]usage[/color]:  {pattern}  --  {description}'
 	
 	# Get usage pattern
-	var pattern := command_name
+	var pattern := '[color=blue]' + command_name + '[/color]'
 	for argument in command_arguments:
-		pattern += ' <{argument_type}: {argument_name}>'.format(
+		pattern += ' <[color=black]{argument_type}[/color]: {argument_name}>'.format(
 			{'argument_type': types.get_type_name(argument[1]), 'argument_name': argument[0]}
 		)
 	
 	help = help.format({'pattern': pattern, 'description': description})
 	
+	# Add command
 	commands[command_name] = Command.new(command_name, parent_node, function_name, command_arguments, description, help)
+	
+	# Log addition to console
+	write('added command %s to console', [command_name])
+	write('\t' + help)
 
 
 func write(string: String, substitutions = []) -> void:
@@ -178,9 +183,9 @@ func _command_help(command_name: String) -> CommandResponse:
 	
 	# If no such command, return error
 	if not command:
-		return CommandResponse.new(CommandResponse.ResponseType.ERROR, 'no command %s' % command_name)
+		return CommandResponse.new(CommandResponse.ResponseType.ERROR, 'no command [color=blue]%s[/color]' % command_name)
 	
-	return CommandResponse.new(CommandResponse.ResponseType.RESULT, '%s\n%s' % [command.description, command.help])
+	return CommandResponse.new(CommandResponse.ResponseType.RESULT, command.help)
 
 
 func _command_exit() -> CommandResponse:
