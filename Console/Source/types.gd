@@ -3,8 +3,8 @@
 Argument Types:
 	- TYPE_INT
 	- TYPE_STRING
-	- TYPE_FLOAT
-	- TYPE_NODE
+	- TYPE_REAL
+	- TYPE_BOOL
 
 Todo:
 	- get_type(string)
@@ -13,16 +13,19 @@ Todo:
 """
 
 extends Node
-class_name Types
+class_name ConsoleTypes
+
+var supported_types := {
+	TYPE_INT    : 'int',
+	TYPE_REAL   : 'real',
+	TYPE_STRING : 'string',
+	TYPE_BOOL   : 'bool'
+}
 
 
-func get_type_name(type):
-	if type == TYPE_INT:
-		return 'int'
-	if type == TYPE_STRING:
-		return 'string'
-	if type == TYPE_REAL:
-		return 'real'
-	if type == TYPE_BOOL:
-		return 'bool'
-	return 'unsuported'
+func is_supported(type) -> bool:
+	return type in supported_types
+
+
+func get_type_name(type) -> String:
+	return supported_types.get(type, 'unsupported_type')
