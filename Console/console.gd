@@ -36,7 +36,7 @@ export(bool) var enable_command_quit := true
 var commands := {}
 var console_output_text := ''
 
-onready var types := Types.new()
+onready var types := ConsoleTypes.new()
 
 onready var output := $container/output
 onready var input := $container/input
@@ -53,6 +53,8 @@ func _ready() -> void:
 		visible = true
 	
 	_add_default_commands()
+	add_command('first', self, 'naah', [])
+	add_command('second', self, '_command_clear', [['arg', TYPE_AABB]])
 
 
 func _add_default_commands() -> void:
@@ -79,6 +81,17 @@ func add_command(command_name: String, parent_node: Node, function_name: String 
 	if not function_name:
 		function_name = command_name
 	
+	# Check arguments are of legal types
+	for argument in command_arguments:
+		if not argument[1] in types.supported_types:
+			console_output_text += 'couldn\'t add command \'%s\', argument \'%s\' of invalid type\n' % [command_name, argument[0]]
+			return
+	
+	# Check target exists
+	if not parent_node.has_method(function_name):
+		console_output_text += 'couldn\'t add command \'%s\', target method \'%s.%s\' doesn\'t exist\n' % [command_name, parent_node.name, function_name]
+		return
+	
 	if not description:
 		description = 'no description given'
 	
@@ -93,7 +106,6 @@ func add_command(command_name: String, parent_node: Node, function_name: String 
 		)
 	
 	help = help.format({'pattern': pattern, 'description': description})
-	print(help)
 	
 	commands[command_name] = Command.new(command_name, parent_node, function_name, command_arguments, description, help)
 
