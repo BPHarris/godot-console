@@ -31,5 +31,4 @@ margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 theme = ExtResource( 2 )
-text = "test"
 [connection signal="text_entered" from="container/input" to="." method="_on_input_text_entered"]
