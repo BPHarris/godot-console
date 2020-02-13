@@ -65,14 +65,9 @@ func _ready() -> void:
 	# Set initial visibility
 	visible = false
 	if open_on_start:
-		_on_toggle_console()
+		visible = true
 	
 	_add_default_commands()
-	var p := parser.parse('echo remainder "long string" 4 3.2 $root', commands)
-	if not p.valid:
-		print(p.error)
-	else:
-		print('command: ', p.command_name, ', arguments: ', p.command_arguments)
 
 
 func _add_default_commands() -> void:
