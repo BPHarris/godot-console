@@ -15,5 +15,14 @@ Todo:
 extends Node
 class_name Types
 
-# Command Argument Types
-enum Type { TYPE_INT, TYPE_STRING, TYPE_FLOAT, TYPE_NODE }
+
+func get_type_name(type):
+	if type == TYPE_INT:
+		return 'int'
+	if type == TYPE_STRING:
+		return 'string'
+	if type == TYPE_REAL:
+		return 'real'
+	if type == TYPE_BOOL:
+		return 'bool'
+	return 'unsuported'
