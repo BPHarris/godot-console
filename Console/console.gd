@@ -35,11 +35,6 @@ onready var input := $container/input
 
 
 func _ready() -> void:
-	get_tree().connect('screen_resized', self, '_on_screen_resized')
-	
-	# Set console size
-	_on_screen_resized()
-	
 	# Set output scroll follow and disable output selection
 	output.set_scroll_follow(true)
 	output.set_focus_mode(FOCUS_NONE)
@@ -99,21 +94,6 @@ func _on_toggle_console() -> void:
 func _on_input_text_entered(new_text: String) -> void:
 	"""TODO: Auto-generated stub."""
 	pass
-
-
-func _on_screen_resized():
-	"""Resize the console to full-screen, with the input at the bottom."""
-	var window := get_viewport().size
-	
-	# Set output size and position
-	output.set_begin(Vector2())
-	output.set_end(Vector2(window.x, window.y - font_size))
-	print('output: ', output.get_begin(), ', ', output.get_end())
-	
-	# Set input size and position
-	input.set_begin(Vector2(0, window.y - font_size))
-	input.set_end(Vector2(window.x, font_size))
-	print('input: ', input.get_begin(), ', ', input.get_end())
 
 
 func clear() -> CommandResponse:

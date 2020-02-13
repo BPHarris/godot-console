@@ -18,16 +18,18 @@ theme = ExtResource( 2 )
 
 [node name="output" type="RichTextLabel" parent="container"]
 margin_right = 1024.0
+margin_bottom = 578.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource( 2 )
 bbcode_enabled = true
-bbcode_text = "initial [color=red]test[/color]"
-text = "initial test"
 scroll_following = true
 
 [node name="input" type="LineEdit" parent="container"]
-margin_top = 4.0
+margin_top = 582.0
 margin_right = 1024.0
-margin_bottom = 22.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
 theme = ExtResource( 2 )
 text = "test"
 [connection signal="text_entered" from="container/input" to="." method="_on_input_text_entered"]
