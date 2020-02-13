@@ -76,7 +76,7 @@ func parse(command_line: String, commands: Dictionary) -> CommandInstance:
 
 
 func _parse_arguments(command_name, arguments: String, parsed = []) -> CommandInstance:
-	""""""
+	"""Parse the next argument in arguments and recurse."""
 	# Parse argument
 	var argument := ''
 	
@@ -97,7 +97,7 @@ func _parse_arguments(command_name, arguments: String, parsed = []) -> CommandIn
 				
 				# Parse space
 				if arguments[i + 1] != ' ':
-					return CommandInstance.new().invalid('missing space after long string')
+					return CommandInstance.new().invalid('missing space after long string argument')
 				
 				# If space then EOL, return parsed args
 				if i == len(arguments):
@@ -105,7 +105,7 @@ func _parse_arguments(command_name, arguments: String, parsed = []) -> CommandIn
 				
 				# Parse remaining args
 				return _parse_arguments(command_name, arguments.substr(i + 2, len(arguments)), parsed + [argument])
-		return CommandInstance.new().invalid('missing closing "')
+		return CommandInstance.new().invalid('argument missing closing "')
 
 	# Parse other
 	for i in range(len(arguments)):
