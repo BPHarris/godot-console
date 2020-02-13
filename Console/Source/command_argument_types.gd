@@ -13,7 +13,7 @@ Todo:
 """
 
 extends Node
-class_name ConsoleTypes
+class_name CommandArgumentType
 
 var supported_types := {
 	TYPE_INT    : 'int',
