@@ -21,8 +21,7 @@ Developer Notes:
 	- 
 
 Todo:
-	- allow disable defualt commands via exprt var
-	- allow string arguments
+	- fix 'Class 'CommandArgumentType' could not be fully loaded (script error or cyclic dependenct).'
 	- tab completion
 	- better help messages
 	- refactor

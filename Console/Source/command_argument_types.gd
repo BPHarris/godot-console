@@ -15,7 +15,7 @@ Todo:
 extends Node
 class_name CommandArgumentType
 
-var supported_types := {
+var supported_types : Dictionary = {
 	TYPE_INT    : 'int',
 	TYPE_REAL   : 'real',
 	TYPE_STRING : 'string',
