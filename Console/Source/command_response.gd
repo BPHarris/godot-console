@@ -42,5 +42,5 @@ func get_response() -> String:
 	
 	# If it is a RESULT, prefix 'result'
 	if type == ResponseType.RESULT:
-		return 'result: {text}'.format({'text': text})
+		return '{text}'.format({'text': text})
 	return ''
