@@ -38,7 +38,7 @@ func get_response() -> String:
 	
 	# If it is an ERROR, prefix 'error'
 	if type == ResponseType.ERROR:
-		return 'error: {text}'.format({'text': text})
+		return '[color=red]error[/color]: {text}'.format({'text': text})
 	
 	# If it is a RESULT, prefix 'result'
 	if type == ResponseType.RESULT:
