@@ -31,6 +31,7 @@ export(bool) var enable_command_clear := true
 export(bool) var enable_command_help := true
 export(bool) var enable_command_exit := true
 export(bool) var enable_command_quit := true
+export(bool) var enable_command_echo := true
 
 
 var commands := {}
@@ -72,6 +73,9 @@ func _add_default_commands() -> void:
 	
 	if enable_command_quit:
 		add_command('quit', self, '_command_quit', [], 'quit the game')
+	
+	if enable_command_echo:
+		add_command('echo', self, '_command_echo', [['output', TYPE_STRING]], 'echo a string')
 
 
 func add_command(command_name: String, parent_node: Node, function_name: String = '', command_arguments: Array = [], description: String = '', help: String = '') -> void:
@@ -198,3 +202,8 @@ func _command_quit() -> CommandResponse:
 	"""Quit the game."""
 	get_tree().quit()
 	return CommandResponse.new()
+
+
+func _command_echo(output: String) -> CommandResponse:
+	"""Echo the output string."""
+	return CommandResponse.new(CommandResponse.ResponseType.RESULT, output)
