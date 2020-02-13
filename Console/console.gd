@@ -53,8 +53,6 @@ func _ready() -> void:
 		visible = true
 	
 	_add_default_commands()
-	add_command('first', self, 'naah', [])
-	add_command('second', self, '_command_clear', [['arg', TYPE_AABB]])
 
 
 func _add_default_commands() -> void:
@@ -84,12 +82,12 @@ func add_command(command_name: String, parent_node: Node, function_name: String 
 	# Check arguments are of legal types
 	for argument in command_arguments:
 		if not argument[1] in types.supported_types:
-			console_output_text += 'couldn\'t add command \'%s\', argument \'%s\' of invalid type\n' % [command_name, argument[0]]
+			write_error('couldn\'t add command \'%s\', argument \'%s\' of invalid type', [command_name, argument[0]])
 			return
 	
 	# Check target exists
 	if not parent_node.has_method(function_name):
-		console_output_text += 'couldn\'t add command \'%s\', target method \'%s.%s\' doesn\'t exist\n' % [command_name, parent_node.name, function_name]
+		write_error('couldn\'t add command \'%s\', target method \'%s.%s\' doesn\'t exist', [command_name, parent_node.name, function_name])
 		return
 	
 	if not description:
@@ -108,6 +106,20 @@ func add_command(command_name: String, parent_node: Node, function_name: String 
 	help = help.format({'pattern': pattern, 'description': description})
 	
 	commands[command_name] = Command.new(command_name, parent_node, function_name, command_arguments, description, help)
+
+
+func write(string: String, substitutions = []) -> void:
+	"""Write the given string to the console."""
+	var coloured_substitutions := []
+	for sub in substitutions:
+		coloured_substitutions.append('[color=blue]' + sub + '[/color]')
+	
+	console_output_text += (string % coloured_substitutions) + '\n'
+
+
+func write_error(error: String, substitutions = []) -> void:
+	"""Write the given error string to the console."""
+	write('[color=red]error[/color]: ' + error, substitutions)
 
 
 func _physics_process(delta):
