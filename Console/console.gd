@@ -51,7 +51,7 @@ export(bool) var enable_command_echo := true
 var commands := {}
 var console_output_text := ''
 
-onready var types := ConsoleTypes.new()
+onready var types := CommandArgumentType.new()
 
 onready var output := $container/output
 onready var input := $container/input
@@ -179,9 +179,23 @@ func _on_toggle_console() -> void:
 		input.grab_focus()
 
 
-func _on_input_text_entered(new_text: String) -> void:
+func _on_input_text_entered(command_line: String) -> void:
 	"""TODO: Auto-generated stub."""
-	pass
+	# Clear input field
+	self.input.text = ''
+	
+	# Add command to history
+	# TODO command history
+	
+	# Parse command
+	# TODO command parser
+	
+	# Execute command
+	# NOTE result must be calculated BEFORE 'text +=' or text doesn't clear on clear command
+	# var response = self.execute(command_name, command_args)
+	
+	# Write result to console
+	# write(response.get_response())
 
 
 func _command_clear() -> CommandResponse:
