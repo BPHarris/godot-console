@@ -18,17 +18,25 @@ Todo:
 extends Control
 class_name Console
 
-export(int) var font_size := 24
+# Console key bindings
 export(String) var input_action_toggle_console := 'dev_toggle_console'
 export(String) var input_action_exit_console := 'ui_cancel'
 export(String) var input_action_history_up := 'ui_up'
 export(String) var input_action_history_down := 'ui_down'
+
 export(bool) var open_on_start := true
+
+# Enable default commands?
+export(bool) var enable_command_clear := true
+export(bool) var enable_command_help := true
+export(bool) var enable_command_exit := true
+export(bool) var enable_command_quit := true
 
 
 var commands := {}
 var console_output_text := ''
 
+onready var types := Types.new()
 
 onready var output := $container/output
 onready var input := $container/input
@@ -44,11 +52,50 @@ func _ready() -> void:
 	if open_on_start:
 		visible = true
 	
-	# Add default commands
-	add_command('clear', self, '', [], 'clear the console', 'usage:\n\tclear')
-	add_command('help', self, '', [], 'display a commands help message', 'usage:\n\thelp <command name>')
-	add_command('exit', self, '', [], 'exit the console', 'usage:\n\texit')
-	add_command('quit', self, '', [], 'quit the game', 'usage:\n\tquit')
+	_add_default_commands()
+
+
+func _add_default_commands() -> void:
+	"""Add the default commands to the console's repertoire."""
+	if enable_command_clear:
+		add_command('clear', self, '_command_clear', [], 'clear the console output')
+	
+	if enable_command_help:
+		add_command(
+			'help',
+			self, '_command_help', [['command_name', TYPE_STRING]],
+			'display a commands help message and usage'
+		)
+	
+	if enable_command_exit:
+		add_command('exit', self, '_command_exit', [], 'exit the current console session')
+	
+	if enable_command_quit:
+		add_command('quit', self, '_command_quit', [], 'quit the game')
+
+
+func add_command(command_name: String, parent_node: Node, function_name: String = '', command_arguments: Array = [], description: String = '', help: String = '') -> void:
+	"""Add the given command to the console's repertoire."""
+	if not function_name:
+		function_name = command_name
+	
+	if not description:
+		description = 'no description given'
+	
+	if not help:
+		help = 'usage:  {pattern}  --  {description}'
+	
+	# Get usage pattern
+	var pattern := command_name
+	for argument in command_arguments:
+		pattern += ' <{argument_type}: {argument_name}>'.format(
+			{'argument_type': types.get_type_name(argument[1]), 'argument_name': argument[0]}
+		)
+	
+	help = help.format({'pattern': pattern, 'description': description})
+	print(help)
+	
+	commands[command_name] = Command.new(command_name, parent_node, function_name, command_arguments, description, help)
 
 
 func _physics_process(delta):
@@ -76,12 +123,6 @@ func _physics_process(delta):
 	output.bbcode_text = '[code]{text}[/code]'.format({'text': console_output_text})
 
 
-func add_command(command_name: String, parent_node: Node, function_name: String = '', command_arguments: Array = [], description: String = '', help: String = '') -> void:
-	if not function_name:
-		function_name = command_name
-	commands[command_name] = Command.new(command_name, parent_node, function_name, command_arguments, description, help)
-
-
 func _on_toggle_console() -> void:
 	"""Toggle the console."""
 	visible = !visible
@@ -96,18 +137,18 @@ func _on_input_text_entered(new_text: String) -> void:
 	pass
 
 
-func clear() -> CommandResponse:
+func _command_clear() -> CommandResponse:
 	"""Clear the console."""
 	input.text = ''
 	console_output_text = ''
 	return CommandResponse.new()
 
 
-func help(command_name: String) -> CommandResponse:
+func _command_help(command_name: String) -> CommandResponse:
 	"""Display the commands help string."""
 	# If command name, display help's help message
 	if not command_name:
-		return help('help')
+		return _command_help('help')
 	
 	var command : Command = commands.get(command_name, null)
 	
@@ -118,13 +159,13 @@ func help(command_name: String) -> CommandResponse:
 	return CommandResponse.new(CommandResponse.ResponseType.RESULT, '%s\n%s' % [command.description, command.help])
 
 
-func exit() -> CommandResponse:
+func _command_exit() -> CommandResponse:
 	"""Faux-close the current console instance."""
 	self.visible = false
-	return clear()
+	return _command_clear()
 
 
-func quit() -> CommandResponse:
+func _command_quit() -> CommandResponse:
 	"""Quit the game."""
 	get_tree().quit()
 	return CommandResponse.new()
