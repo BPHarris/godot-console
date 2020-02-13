@@ -51,6 +51,7 @@ var commands := {}
 var console_output_text := ''
 
 onready var types := CommandArgumentType.new()
+onready var parser := CommandParser.new()
 
 onready var output := $container/output
 onready var input := $container/input
