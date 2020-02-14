@@ -1,8 +1,6 @@
 # godot-console <!-- omit in toc -->
 A simple Source-enigine inspired game console for Godot.
 
-**N.B.: Work-in-progress -- not in a functional state.**
-
 - [Adding to a Godot Project](#adding-to-a-godot-project)
 - [Usage](#usage)
 - [Adding Custom Commands](#adding-custom-commands)
@@ -33,7 +31,7 @@ Custom command arguments:
 - `function_name` : the name of the method/function that implements the command (optional, default = `command_name`)
 - `command_arguments` : the names and types of the command/functions arguments (optional, default = empty)
 - `description` : a description of the commands function (optional)
-- `help` : a help string for the command, usually a usage style string (optional)
+- `help` : a help string for the command, usually a usage style string (optional, default = automatically derived)
 
 If a result is returned, it will be printed to the console.
 
@@ -93,5 +91,6 @@ Argument Types:
 - `help` : prints `'{description}\n{help}'` to the console output
 - `exit` : closes the console
 - `quit` : quits the game
+- `echo` : takes a string and prints it to the console
 
 Any of these can be disabled via exported console variables.
