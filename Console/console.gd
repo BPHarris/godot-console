@@ -89,7 +89,7 @@ func _add_default_commands() -> void:
 		add_command('quit', self, '_command_quit', [], 'quit the game')
 	
 	if enable_command_echo:
-		add_command('echo', self, '_command_echo', [['output', TYPE_STRING]], 'echo a string')
+		add_command('echo', self, '_command_echo', [['output', null]], 'echo a string')
 
 
 func add_command(command_name: String, parent_node: Node, function_name: String = '', command_arguments: Array = [], description: String = '', help: String = '') -> void:
@@ -99,7 +99,7 @@ func add_command(command_name: String, parent_node: Node, function_name: String 
 	
 	# Check arguments are of legal types
 	for argument in command_arguments:
-		if not argument[1] in types.supported_types:
+		if not types.is_supported(argument[1]):
 			write_error('couldn\'t add command \'%s\', argument \'%s\' of invalid type', [command_name, argument[0]])
 			return
 	
@@ -135,7 +135,7 @@ func write(string: String, substitutions = []) -> void:
 	"""Write the given string to the console."""
 	var coloured_substitutions := []
 	for sub in substitutions:
-		coloured_substitutions.append('[color=blue]' + sub + '[/color]')
+		coloured_substitutions.append('[color=blue]' + str(sub) + '[/color]')
 	
 	console_output_text += (string % coloured_substitutions) + '\n'
 
@@ -188,11 +188,49 @@ func _on_input_text_entered(command_line: String) -> void:
 	# TODO command history
 	
 	# Parse command
-	# TODO command parser
+	var command_instance := parser.parse(command_line, commands)
+	
+	# Get command
+	var command : Command = commands.get(command_instance.command_name, null)
+	if not command:
+		write_error('command %s does not exist', [command_instance.command_name])
+		return
+	
+	# Check number of arguments
+	if len(command_instance.command_arguments) > len(command.command_arguments):
+		write_error('too many arguments for command %s', [command.command_name])
+		return
+	if len(command_instance.command_arguments) > len(command.command_arguments):
+		write_error('too few arguments for command %s', [command.command_name])
+		return
+	
+	# Process arguments
+	var arguments : Array = []
+	for i in range(len(command.command_arguments)):
+		var expected = command.command_arguments[i][1]
+		var received = types.get_type(command_instance.command_arguments[i])
+		
+		# Check type
+		if not types.equivalent(expected, received):
+			write_error(
+				'argument %s (value = %s) wrong type, expected %s and received %s',
+				[
+					i + 1,
+					command_instance.command_arguments[i],
+					types.get_type_name(expected),
+					types.get_type_name(received)
+				]
+			)
+			return
+		
+		# Process
+		arguments.append(types.get_value(command_instance.command_arguments[i]))
+	
+	print(command.command_name, ' ', arguments)
 	
 	# Execute command
 	# NOTE result must be calculated BEFORE 'text +=' or text doesn't clear on clear command
-	# var response = self.execute(command_name, command_args)
+	var response := self.execute(command.command_name, command.command_arguments)
 	
 	# Write result to console
 	# write(response.get_response())
