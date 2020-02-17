@@ -197,6 +197,7 @@ func _on_input_text_entered(command_line: String) -> void:
 		return
 	
 	# Check number of arguments
+	print(command_instance.command_arguments, command.command_arguments)
 	if len(command_instance.command_arguments) > len(command.command_arguments):
 		write_error('too many arguments for command %s', [command.command_name])
 		return
@@ -230,10 +231,10 @@ func _on_input_text_entered(command_line: String) -> void:
 	
 	# Execute command
 	# NOTE result must be calculated BEFORE 'text +=' or text doesn't clear on clear command
-	var response := self.execute(command.command_name, command.command_arguments)
+	var response : CommandResponse = command.parent_node.callv(command.function_name, arguments)
 	
 	# Write result to console
-	# write(response.get_response())
+	write(response.get_response())
 
 
 func _command_clear() -> CommandResponse:
