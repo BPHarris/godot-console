@@ -189,6 +189,9 @@ func _on_input_text_entered(command_line: String) -> void:
 	
 	# Parse command
 	var command_instance := parser.parse(command_line, commands)
+	if not command_instance.valid:
+		write_error(command_instance.error)
+		return
 	
 	# Get command
 	var command : Command = commands.get(command_instance.command_name, null)
@@ -214,9 +217,8 @@ func _on_input_text_entered(command_line: String) -> void:
 		# Check type
 		if not types.equivalent(expected, received):
 			write_error(
-				'argument %s (value = %s) wrong type, expected %s and received %s',
+				'argument ' + str(i + 1) + ' (value = %s) wrong type, expected %s and received %s',
 				[
-					i + 1,
 					command_instance.command_arguments[i],
 					types.get_type_name(expected),
 					types.get_type_name(received)
