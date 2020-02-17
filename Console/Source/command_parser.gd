@@ -69,9 +69,6 @@ func parse(command_line: String, commands: Dictionary) -> CommandInstance:
 	if not parsed.valid:
 		return CommandInstance.new().invalid(parsed.error)
 	
-	# Process arguments
-	# TODO determine argument types and compare to expected types in commands[command_name].command_arguments
-	
 	return parsed
 
 
