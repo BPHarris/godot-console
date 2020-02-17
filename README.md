@@ -45,13 +45,16 @@ func _read():
         self,
         '_my_command',
         [['x', TYPE_INT], ['s', TYPE_STRING]],
-        'this is my custom command',
-        'usage:\n\tmy_command <int: x> <string: s>'
+        'this is my custom command'
     )
 
 func _my_command(x, s):
     # Your command logic here
     ...
+
+    # If command with no output
+    if no_ouput:
+        return CommandResponse.new(CommandResponse.ResponseType.EMPTY)
 
     # On error
     if error:
@@ -63,17 +66,11 @@ func _my_command(x, s):
 Worked example of an echo command:
 ```GDScript
 func _ready():
-    console.add_command(
-        "echo",
-        self,
-        '_echo_to_console',
-        ['output', TYPE_STRING],
-        'echo to console',
-        'usage:\n\techo <string>'
-    )
+    add_command('echo', self, '_command_echo', [['output', TYPE_STRING]], 'echo a string')
 
-func _echo_to_console(output = ''):
-    return CommandResponse.new(CommandResponse.ResponseType.RESULT, output)
+func _command_echo(output):
+	"""Echo the output string."""
+	return CommandResponse.new(CommandResponse.ResponseType.RESULT, output)
 ```
 
 # Command Argument Types
@@ -88,7 +85,7 @@ Argument Types:
 
 # Default Commands
 - `clear` : clears the console output
-- `help` : prints `'{description}\n{help}'` to the console output
+- `help` : prints the help message to the console
 - `exit` : closes the console
 - `quit` : quits the game
 - `echo` : takes a string and prints it to the console
