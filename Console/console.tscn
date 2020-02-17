@@ -18,7 +18,7 @@ theme = ExtResource( 2 )
 
 [node name="output" type="RichTextLabel" parent="container"]
 margin_right = 1024.0
-margin_bottom = 578.0
+margin_bottom = 574.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 2 )
@@ -26,7 +26,7 @@ bbcode_enabled = true
 scroll_following = true
 
 [node name="input" type="LineEdit" parent="container"]
-margin_top = 582.0
+margin_top = 578.0
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
