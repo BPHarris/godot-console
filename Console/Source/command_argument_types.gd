@@ -6,6 +6,11 @@ Argument Types:
 	- TYPE_REAL
 	- TYPE_BOOL
 
+Typing Rules:
+	Types A, B are equivalent if A == B
+	Types A, B are equivalent if A == null (dynamic)
+		i.e. Type T is null/dynamic, but null/dynamic is not always T
+
 Todo:
 	- get_type(string)
 	- is_type(string, CommandArgumentType)
@@ -24,10 +29,15 @@ var supported_types : Dictionary = {
 
 
 func is_supported(type) -> bool:
+	# Allow for null (i.e. dynamically typed argument)
+	if type == null:
+		return true
 	return type in supported_types
 
 
 func get_type_name(type) -> String:
+	if type == null:
+		return 'dynamic'
 	return supported_types.get(type, 'unsupported_type')
 
 
@@ -57,3 +67,13 @@ func get_value(string: String):
 
 func get_type(string: String):
 	return typeof(get_value(string))
+
+
+func equivalent(type_a, type_b) -> bool:
+	"""Return true if two types are equivalent.
+	
+	Follows typing rules in __doc__.
+	"""
+	if type_a == null:
+		return true
+	return type_a == type_b
