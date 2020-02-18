@@ -12,7 +12,7 @@ Console Command Mini Language:
 					|	'"' [c]+ '"'    ; long string, for any character c
 					|	'$' [a-zA-Z.]+  ; node reference
 	
-	command_line    ::= command arguments?
+	command_line    ::= command arguments? | command
 
 Developer Notes:
 	- 
@@ -54,12 +54,24 @@ func parse(command_line: String, commands: Dictionary) -> CommandInstance:
 	var command_name := ''
 	
 	# Parse command name
+	# command_line    ::= command
+	var simple_command = true
+	for c in command_line:
+		if c == ' ':
+			simple_command = false
+			break
+	
+	if simple_command:
+		return _parse_arguments(command_line, '', [])
+	
+	# Parse command line
+	# command_line    ::= command arguments?
 	for i in range(len(command_line)):
 		if command_line[i] in alpha + '_':
 			command_name += command_line[i]
 			continue
 		if command_line[i] == ' ':
-			command_line = command_line.substr(i + 1, len(command_line))
+			command_line = command_line.substr(i + 1, len(command_line) - 1)
 			break
 		return CommandInstance.new().invalid('command name illformed')
 	
