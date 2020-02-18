@@ -21,7 +21,8 @@ Developer Notes:
 	- 
 
 Todo:
-	- fix 'Class 'CommandArgumentType' could not be fully loaded (script error or cyclic dependenct).'
+	- Allow help to have no arguments
+		- knapsack style matching thingy?
 	- tab completion
 	- better help messages
 	- refactor
