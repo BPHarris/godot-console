@@ -200,11 +200,10 @@ func _on_input_text_entered(command_line: String) -> void:
 		return
 	
 	# Check number of arguments
-	print(command_instance.command_arguments, command.command_arguments)
 	if len(command_instance.command_arguments) > len(command.command_arguments):
 		write_error('too many arguments for command %s', [command.command_name])
 		return
-	if len(command_instance.command_arguments) > len(command.command_arguments):
+	if len(command_instance.command_arguments) < len(command.command_arguments):
 		write_error('too few arguments for command %s', [command.command_name])
 		return
 	
@@ -228,8 +227,6 @@ func _on_input_text_entered(command_line: String) -> void:
 		
 		# Process
 		arguments.append(types.get_value(command_instance.command_arguments[i]))
-	
-	print(command.command_name, ' ', arguments)
 	
 	# Execute command
 	# NOTE result must be calculated BEFORE 'text +=' or text doesn't clear on clear command
@@ -273,6 +270,6 @@ func _command_quit() -> CommandResponse:
 	return CommandResponse.new()
 
 
-func _command_echo(output: String) -> CommandResponse:
+func _command_echo(output) -> CommandResponse:
 	"""Echo the output string."""
-	return CommandResponse.new(CommandResponse.ResponseType.RESULT, output)
+	return CommandResponse.new(CommandResponse.ResponseType.RESULT, str(output))
