@@ -2,8 +2,6 @@
 
 Arguments Format:
 	[[name_0, type_0], ..., [name_i, type_i]] foreach argument 0..i
-	where each type_n is valid (see command_argument_types.gd),
-	and each name_n is a string.
 
 Developer Notes:
 	- 
