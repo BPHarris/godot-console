@@ -1,10 +1,10 @@
+![Godot Console](Resources/godot_console_logo.png)
+
 # godot-console <!-- omit in toc -->
 An easy-to-use Source Engine inspired game console for Godot with the ability to manipulate Godot `Node` s.
 
-![Godot Console](Resources/godot_console_logo.png)
-
 - [Examples](#examples)
-- [Empty Scene Examples](#empty-scene-examples)
+  - [Empty Scene Examples](#empty-scene-examples)
   - [In Game Example](#in-game-example)
 - [Adding to a Godot Project](#adding-to-a-godot-project)
 - [Usage](#usage)
