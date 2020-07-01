@@ -1,18 +1,19 @@
 """Godot Console
 
 Console Command Mini Language:
-	command			::= [a-zA-Z_]+
+	command         ::= [a-zA-Z_-.]+
 	
-	arguments		::= (' ' argument)+
-	argument		::= 'true'          ; bool
-					|	'false'         ; bool
-					|	[0-9]+          ; int
-					|	[0-9]+.[0-9]+   ; float
-					|	[a-zA-Z]+       ; small string/name
-					|	'"' [c]+ '"'    ; long string, for any character c
-					|	'$' [a-zA-Z.]+  ; node reference
+	arguments       ::= (' ' argument)+
+	argument        ::= 'true'              ; bool
+					|	'false'             ; bool
+					|	[0-9]+              ; int
+					|	[0-9]+ '.' [0-9]+   ; float/real
+					|	[c]+                ; small string/name
+					|	'"' [c]+ '"'        ; long string
+					|	'@' [c]+            ; node path
+		where c is short-hand for any character
 	
-	command_line	::= command arguments?
+	command_line    ::= command arguments?
 
 Author: Brandon Harris (bpharris@pm.me)
 
