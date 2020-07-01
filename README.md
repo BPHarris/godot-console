@@ -36,7 +36,7 @@ An easy-to-use Source Engine inspired game console for Godot with the ability to
 3. In your Godot project go to `Project > Project Settings... > Plugins` and set the console to active.
 4.  To add the console to a scene click create a new child node (as you would with a native Godot node such as `KinematicBody2D`, **not** an instanced scene) and search for console. Select the listed ![Console](icon16.png)`Console` node and click 'Create'. NB: The ![Console](icon16.png)`Console` node should be under `Node > CanvasItem > Control > Console`.
     
-    NB: It is recommended you add it to your Player UI/HUD so that a singular console is accessible in all scences. For example, this was the structure of my player scene in a recent project of mine:
+    NB: It is recommended you add it to your Player UI/HUD so that a singular console is accessible in all scences. For example:
     ```
     Player (Type: KinematicBody)
     ├─ Mesh
@@ -47,6 +47,9 @@ An easy-to-use Source Engine inspired game console for Godot with the ability to
         ├─ ...
         └─ Console
     ```
+    Image example from a game of mine:
+    ![Console Scene Example](Resources/console_scene_example.png)
+    
 5. Select the newly created `Console` node and, in the editor, set the layout to 'Full Rect' (`Layout > Full Rect`).
 6. Ensure that your Godot project has keys assigned to (`Project > Project Settings... > Input Map`):
     1. 'dev_toggle_console' -- to toggle the console open/closed
