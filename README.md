@@ -48,6 +48,7 @@ An easy-to-use Source Engine inspired game console for Godot with the ability to
         └─ Console
     ```
     Image example from a game of mine:
+    
     ![Console Scene Example](Resources/console_scene_example.png)
     
 5. Select the newly created `Console` node and, in the editor, set the layout to 'Full Rect' (`Layout > Full Rect`).
