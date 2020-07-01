@@ -1,7 +1,7 @@
 # godot-console <!-- omit in toc -->
 An easy-to-use Source Engine inspired game console for Godot with the ability to manipulate Godot `Node` s.
 
-![Godot Console](godot_console_logo.png)
+![Godot Console](Resources/godot_console_logo.png)
 
 - [Examples](#examples)
 - [Empty Scene Examples](#empty-scene-examples)
@@ -167,7 +167,6 @@ Any of these can be disabled via exported console variables.
 Todo:
 - Implement command history
 - Add command tab-completion
-- Clean up the icon/logo files in the repo
 
 
 # LICENSE
