@@ -160,8 +160,6 @@ Current:
 Comming soon:
 - `info`/`debug`/`warn`/`error` ?
 
-Any of these can be disabled via exported console variables.
-
 
 # Future
 Todo:
