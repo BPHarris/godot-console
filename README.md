@@ -4,7 +4,8 @@ An easy-to-use Source Engine inspired game console for Godot with the ability to
 ![Godot Console](godot_console_logo.png)
 
 - [Examples](#examples)
-  - [NB: These Examples are from a stylistically-lowres game! The font will **not** be pixelated or fuzzy under normal use. The font used is a standard true type font (Inconsolata, similar to Microsoft's Consolas).](#nb-these-examples-are-from-a-stylistically-lowres-game-the-font-will-not-be-pixelated-or-fuzzy-under-normal-use-the-font-used-is-a-standard-true-type-font-inconsolata-similar-to-microsofts-consolas)
+- [Empty Scene Examples](#empty-scene-examples)
+  - [In Game Example](#in-game-example)
 - [Adding to a Godot Project](#adding-to-a-godot-project)
 - [Usage](#usage)
 - [Adding Custom Commands](#adding-custom-commands)
@@ -14,11 +15,16 @@ An easy-to-use Source Engine inspired game console for Godot with the ability to
 - [LICENSE](#license)
 
 # Examples
-## NB: These Examples are from a stylistically-lowres game! The font will **not** be pixelated or fuzzy under normal use. The font used is a standard true type font (Inconsolata, similar to Microsoft's Consolas).
+**NB: These Examples are from a stylistically-lowres game! The font will *not* be pixelated or fuzzy under normal use. The font used is a standard true type font (Inconsolata, similar to Microsoft's Consolas).**
 
+
+# Empty Scene Examples
 ![Example One](Examples/console_example_one.png)
 ![Example Two](Examples/console_example_two.png)
 ![Example Three](Examples/console_example_three.png)
+
+## In Game Example
+![Example Four](Examples/console_example_four.png)
 
 # Adding to a Godot Project
 1. If you don't already have an `addon` folder in your Godot project create one (`res://addons/`)
