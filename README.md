@@ -1,45 +1,76 @@
 # godot-console <!-- omit in toc -->
-A simple Source-enigine inspired game console for Godot.
+An easy-to-use Source Engine inspired game console for Godot with the ability to manipulate Godot `Node` s.
+
+![Godot Console](godot_console_logo.png)
 
 - [Adding to a Godot Project](#adding-to-a-godot-project)
 - [Usage](#usage)
 - [Adding Custom Commands](#adding-custom-commands)
 - [Command Argument Types](#command-argument-types)
 - [Default Commands](#default-commands)
+- [Future](#future)
+- [LICENSE](#license)
 
 # Adding to a Godot Project
-1. Copy the `./Console` directory into your Godot project.
-2. Add an instance of `Console.tscn` to your scene's root node.
-3. Ensure that your Godot project has keys assigned to:
+1. If you don't already have an `addon` folder in your Godot project create one (`res://addons/`)
+2. Submodule this repository into `res://addons/godot_console`, from `res://` (project root) run:
+    ```
+    git add submodule https://github.com/BPHarris/godot-console.git addons/godot_console/
+    ```
+    NB: The addon folder must be `godot_console` verbatim or Godot will not correctly register the plugin.
+3. In your Godot project go to `Project > Project Settings... > Plugins` and set the console to active.
+4.  To add the console to a scene click create a new child node (as you would with a native Godot node such as `KinematicBody2D`, **not** an instanced scene) and search for console. Select the listed ![Console](icon16.png)`Console` node and click 'Create'. NB: The ![Console](icon16.png)`Console` node should be under `Node > CanvasItem > Control > Console`.
+    
+    NB: It is recommended you add it to your Player UI/HUD so that a singular console is accessible in all scences. For example, this was the structure of my player scene in a recent project of mine:
+    ```
+    Player (Type: KinematicBody)
+    ├─ Mesh
+    ├─ AnimationPlayer
+    ├─ ...
+    └── UI  (Type: Control)
+        ├─ ...
+        ├─ ...
+        └─ Console
+    ```
+5. Select the newly created `Console` node and, in the editor, set the layout to 'Full Rect' (`Layout > Full Rect`).
+6. Ensure that your Godot project has keys assigned to (`Project > Project Settings... > Input Map`):
     1. 'dev_toggle_console' -- to toggle the console open/closed
     2. 'ui_cancel' -- to close the console   (NB: assigned by default)
     3. 'ui_up' -- to navigate up in command history  (NB: assigned by default)
     4. 'ui_down' -- to navigate down in command history  (NB: assigned by default)
     5. 'ui_enter' -- to enter a command  (NB: assigned by default)
+7. Enjoy! 
 
 # Usage
 To use the console, simply press the 'dev_toggle_console' key to open the console,
-type a command, and press 'ui_enter'.
+type a command, and press 'ui_enter'. The console comes with a `help` command built-in for help with commands, for example:
+    
+    > help echo
+    echo <output : Variant> - echo the given argument
+    > help help
+    help <command_name : String> - display the given command's help message
+
+but with prettier colours!
 
 # Adding Custom Commands
 Simply call `$console.add_command(`*args*`)` where `$console` is a reference to the
-console node. The function implementing the command must return a CommandResponse instance.
+console node. The method implementing the command must return a CommandResponse instance. Below are the exact rules, but they may be a bit confusing at first -- if so take a look at the example and you will see it is quite simple really!
 
 Custom command arguments:
-- `command_name` : the name the command will be called with
-- `parent_node` : a refence the node that stores the method that implements the command (usually `self`)
-- `function_name` : the name of the method/function that implements the command (optional, default = `command_name`)
-- `command_arguments` : the names and types of the command/functions arguments (optional, default = empty)
-- `description` : a description of the commands function (optional)
-- `help` : a help string for the command, usually a usage style string (optional, default = automatically derived)
+- `name` : The name the command will registered as
+- `parent_node` : A refence the node that stores the method that implements the command (usually `self`)
+- `method_name` : The name of the method that implements the command (default = `name`)
+- `command_arguments` : The names and types of the command/method arguments (default = empty) (type: `Array[Array[argument_name : String, argument_type : Type]]`)
+- `description` : A description of the commands function, displayed by the `help` command (default = `'no description given'`)
+- `help` : A help string for the command, usually a usage style string (default = automatically derived).
+    
+    Unless you want to specifically override the automatically generated help string (which is quite good and have highlighting, see the examples in Usage) you should omit this argument.
 
-If a result is returned, it will be printed to the console.
+Type hints omitted in examples for better syntax highlighting on GitHub (though most people don't use them anyways).
 
-Typing info omitted in examples for better syntax highlighting on GitHub.
-
-Example:
+Example (given that `console` is a reference to a `Console` node):
 ```GDScript
-func _read():
+func _ready():
     console.add_command(
         'my_command',
         self,
@@ -63,31 +94,70 @@ func _my_command(x, s):
     return CommandResponse.new(CommandResponse.ResponseType.RESULT, 'result/response as string')
 ```
 
-Worked example of an echo command:
+For info on the command argument types see the 'Command Argument Types' section below.
+
+Worked example of the `echo` command:
 ```GDScript
 func _ready():
-    add_command('echo', self, '_command_echo', [['output', TYPE_STRING]], 'echo a string')
+    add_command('echo', self, '_command_echo', [['output', TYPE_NIL]], 'echo the given argument')
 
 func _command_echo(output):
 	"""Echo the output string."""
-	return CommandResponse.new(CommandResponse.ResponseType.RESULT, output)
+	return CommandResponse.new(CommandResponse.ResponseType.RESULT, str(output)1)
+```
+In use:
+```
+> help echo
+echo <output : Variant> - echo the given argument
+> echo 4
+4
+> echo test
+test
+> echo "a long string"
+a long string
 ```
 
 # Command Argument Types
-See `./Console/Source/types.gd`.
+See `./Command/Types.gd` for even more info and implementation.
 
 Argument Types:
-- TYPE_INT
-- TYPE_STRING
-- TYPE_FLOAT
-- TYPE_NODE
+- TYPE_NIL          (GDScript `Variant`, i.e. dynamicly typed)
+- TYPE_BOOL         (GDScript `bool`, e.g. `true`)
+- TYPE_INT          (GDScript `int`, e.g. `4`)
+- TYPE_REAL         (GDScript `float`, e.g. `3.2`)
+- TYPE_STRING       (GDScript `String`, e.g. `'a sring'`)
+- TYPE_NODE_PATH    (GDScript `NodePath`, i.e. a `NodePath()` instance)
+
+The identifiers TYPE_NIL, TYPE_INT, etc are provided by GDScript (as part of `@GlobalScope`) in the enum `Variant.Type`.
 
 
 # Default Commands
+Current:
 - `clear` : clears the console output
 - `help` : prints the help message to the console
 - `exit` : closes the console
 - `quit` : quits the game
 - `echo` : takes a string and prints it to the console
+- `print_tree` : print the full scene tree to the console
+- `print_children` : print the given node's children (i.e. print the subtree for which the given node is the root)
+- `list` : list the registered commands
+
+Comming soon:
+- `info`/`debug`/`warn`/`error` ?
 
 Any of these can be disabled via exported console variables.
+
+
+# Future
+Todo:
+- Implement command history
+- Add command tab-completion
+- Clean up the icon/logo files in the repo
+
+
+# LICENSE
+See the LICENSE file (MIT License)
+
+Feel free to suggest improvements, contribute code, etc!
+
+If you use the console in your game please let me know! I would love to hear about it. :)

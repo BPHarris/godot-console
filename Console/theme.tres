@@ -1,0 +1,57 @@
+[gd_resource type="Theme" load_steps=9 format=2]
+
+[ext_resource path="res://addons/godot_console/Console/Fonts/Inconsolata-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://addons/godot_console/Console/Fonts/Inconsolata-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://addons/godot_console/Console/output_style.tres" type="StyleBox" id=3]
+[ext_resource path="res://addons/godot_console/Console/input_style.tres" type="StyleBox" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 22
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 22
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 22
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 22
+font_data = ExtResource( 1 )
+
+[resource]
+default_font = SubResource( 4 )
+Fonts/fonts/large = SubResource( 1 )
+Fonts/fonts/normal = SubResource( 2 )
+LineEdit/colors/clear_button_color = Color( 0.92549, 0.941176, 0.945098, 1 )
+LineEdit/colors/clear_button_color_pressed = Color( 0.92549, 0.941176, 0.945098, 1 )
+LineEdit/colors/cursor_color = Color( 0.92549, 0.941176, 0.945098, 1 )
+LineEdit/colors/font_color = Color( 0.92549, 0.941176, 0.945098, 1 )
+LineEdit/colors/font_color_selected = Color( 0.92549, 0.941176, 0.945098, 1 )
+LineEdit/colors/font_color_uneditable = Color( 0.741176, 0.764706, 0.780392, 0.768627 )
+LineEdit/colors/selection_color = Color( 0.160784, 0.501961, 0.72549, 0.501961 )
+LineEdit/constants/minimum_spaces = 12
+LineEdit/fonts/font = null
+LineEdit/icons/clear = null
+LineEdit/styles/focus = ExtResource( 4 )
+LineEdit/styles/normal = ExtResource( 4 )
+LineEdit/styles/read_only = ExtResource( 4 )
+RichTextLabel/colors/default_color = Color( 0.92549, 0.941176, 0.945098, 1 )
+RichTextLabel/colors/font_color_selected = Color( 0.92549, 0.941176, 0.945098, 1 )
+RichTextLabel/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+RichTextLabel/colors/selection_color = Color( 0.160784, 0.501961, 0.72549, 0.501961 )
+RichTextLabel/constants/line_separation = 1
+RichTextLabel/constants/shadow_as_outline = 0
+RichTextLabel/constants/shadow_offset_x = 1
+RichTextLabel/constants/shadow_offset_y = 1
+RichTextLabel/constants/table_hseparation = 3
+RichTextLabel/constants/table_vseparation = 3
+RichTextLabel/fonts/bold_font = SubResource( 3 )
+RichTextLabel/fonts/bold_italics_font = null
+RichTextLabel/fonts/italics_font = null
+RichTextLabel/fonts/mono_font = null
+RichTextLabel/fonts/normal_font = null
+RichTextLabel/styles/focus = ExtResource( 3 )
+RichTextLabel/styles/normal = ExtResource( 3 )

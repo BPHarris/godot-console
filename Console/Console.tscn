@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/godot_console/Console/theme.tres" type="Theme" id=1]
+
+[node name="Container" type="Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+margin_top = -188.0
+color = Color( 0, 0, 0, 0.768627 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Output" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+margin_top = -184.0
+margin_bottom = -24.0
+focus_mode = 2
+bbcode_enabled = true
+bbcode_text = "[b]Godot Developer Console[/b]
+
+by bpharris (bpharrs@pm.me)
+"
+text = "Godot Developer Console
+
+by bpharris (bpharrs@pm.me)
+"
+scroll_following = true
+selection_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Input" type="LineEdit" parent="."]
+anchor_right = 1.0
+margin_top = -36.0
+context_menu_enabled = false
+placeholder_text = ">_"
+caret_blink = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
