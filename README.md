@@ -18,7 +18,7 @@ An easy-to-use Source Engine inspired game console for Godot with the ability to
 **NB: These Examples are from a stylistically-lowres game! The font will *not* be pixelated or fuzzy under normal use. The font used is a standard true type font (Inconsolata, similar to Microsoft's Consolas).**
 
 
-# Empty Scene Examples
+## Empty Scene Examples
 ![Example One](Examples/console_example_one.png)
 ![Example Two](Examples/console_example_two.png)
 ![Example Three](Examples/console_example_three.png)
