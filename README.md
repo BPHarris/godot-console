@@ -52,13 +52,19 @@ An easy-to-use Source Engine inspired game console for Godot with the ability to
     ![Console Scene Example](Resources/console_scene_example.png)
     
 5. Select the newly created `Console` node and, in the editor, set the layout to 'Full Rect' (`Layout > Full Rect`).
-6. Ensure that your Godot project has keys assigned to (`Project > Project Settings... > Input Map`):
+6. For the `Console` to work you will also need to create an `autoload` script called `Globals` and add to it the following:
+    
+    ```var console_commands := {}```
+
+    I would recommend having a `Globals.gd` autoload regardless of the use of the `Console` as it allows one to track values across scenes (such as a player inventory, etc), though one should obviously be conservative about what one puts in the global autoload.
+
+7. Ensure that your Godot project has keys assigned to (`Project > Project Settings... > Input Map`):
     1. 'dev_toggle_console' -- to toggle the console open/closed
     2. 'ui_cancel' -- to close the console   (NB: assigned by default)
     3. 'ui_up' -- to navigate up in command history  (NB: assigned by default)
     4. 'ui_down' -- to navigate down in command history  (NB: assigned by default)
     5. 'ui_enter' -- to enter a command  (NB: assigned by default)
-7. Enjoy! 
+8. Enjoy! 
 
 # Usage
 To use the console, simply press the 'dev_toggle_console' key to open the console,
