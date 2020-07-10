@@ -127,15 +127,14 @@ func _add_default_commands() -> void:
 	add_command('list', self, '_command_list', [], 'list registered commands')
 
 
-func _physics_process(delta) -> void:
-	"""Handle input here (not _input) or else a backtick appears on re-open."""
-	# Toggle console
-	if Input.is_action_just_pressed(input_action_toggle_console):
+func _input(event : InputEvent):
+	if event.is_action_pressed(input_action_toggle_console):
 		_on_toggle_console()
-
-	# If the console is visible, escape/ui_cancel will close it
-	if Input.is_action_just_pressed(input_action_exit_console) and visible:
+		get_tree().set_input_as_handled()
+	
+	if event.is_action_pressed(input_action_exit_console) and visible:
 		visible = false
+		get_tree().set_input_as_handled()
 
 
 func add_command(
