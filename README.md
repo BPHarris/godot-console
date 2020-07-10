@@ -169,10 +169,12 @@ Current:
 
 Comming soon:
 - `info`/`debug`/`warn`/`error` ?
+- `bind`/`unbind`
 
 
 # Future
 Todo:
+- Remove need for autoload script
 - Implement command history
 - Add command tab-completion
 
