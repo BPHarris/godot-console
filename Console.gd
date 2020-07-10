@@ -37,7 +37,6 @@ Todo:
 
 """
 
-tool
 extends Control
 
 
