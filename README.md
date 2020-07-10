@@ -30,7 +30,7 @@ An easy-to-use Source Engine inspired game console for Godot with the ability to
 1. If you don't already have an `addon` folder in your Godot project create one (`res://addons/`)
 2. Submodule this repository into `res://addons/godot_console`, from `res://` (project root) run:
     ```
-    git add submodule https://github.com/BPHarris/godot-console.git addons/godot_console/
+    git submodule add https://github.com/bpharris/godot-console.git addons/godot_console/
     ```
     NB: The addon folder must be `godot_console` verbatim or Godot will not correctly register the plugin.
 3. In your Godot project go to `Project > Project Settings... > Plugins` and set the console to active.
