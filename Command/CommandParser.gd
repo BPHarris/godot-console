@@ -19,7 +19,7 @@ Developer Notes:
 	- 
 
 Todo:
-	- long string with '' instead of \""
+	- long string with \' instead of \"
 	- allow 0-9 in command FOLLOW_SET
 
 """
