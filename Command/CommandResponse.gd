@@ -34,7 +34,7 @@ func get_response() -> String:
 	"""Return the printable response text."""
 	# If it is an ERROR, prefix 'error'
 	if self.type == ResponseType.ERROR:
-		return '[color=red]Error[/color]: ' + self.text
+		return '[b][color=red]Error[/color][/b]: ' + self.text
 	
 	# If it is a RESULT, prefix 'result'
 	if self.type == ResponseType.RESULT:
