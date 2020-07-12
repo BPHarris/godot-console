@@ -108,6 +108,12 @@ func _input(event : InputEvent):
 	
 	if event.is_action_pressed("ui_focus_next"):
 		_autocomplete()
+	
+	if event.is_action_pressed("ui_up"):
+		_history(+1)
+	
+	if event.is_action_pressed("ui_down"):
+		_history(-1)
 
 
 func add_command(
@@ -255,6 +261,15 @@ func _on_toggle_console() -> void:
 	
 	input.clear()
 	history_pointer = 0
+
+
+func _history(direction : int) -> void:
+	history_pointer = int(clamp(history_pointer + direction, 0, len(command_history)))
+	
+	input.clear()
+	if not history_pointer:
+		return
+	input.append_at_cursor(command_history[-history_pointer])
 
 
 class AutocompleteMatchesSorter:

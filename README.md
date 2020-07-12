@@ -1,7 +1,7 @@
 ![Godot Console](Resources/godot_console_logo.png)
 
 # godot-console <!-- omit in toc -->
-An easy-to-use Source Engine inspired game console for Godot with autocomplete and the ability to manipulate Godot `Node` s.
+An easy-to-use Source Engine inspired game console for Godot with history, autocomplete, and the ability to manipulate any Godot `Node` s.
 
 - [Examples](#examples)
   - [Empty Scene Examples](#empty-scene-examples)
