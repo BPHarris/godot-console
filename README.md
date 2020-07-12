@@ -1,7 +1,7 @@
 ![Godot Console](Resources/godot_console_logo.png)
 
 # godot-console <!-- omit in toc -->
-An easy-to-use Source Engine inspired game console for Godot with the ability to manipulate Godot `Node` s.
+An easy-to-use Source Engine inspired game console for Godot with autocomplete and the ability to manipulate Godot `Node` s.
 
 - [Examples](#examples)
   - [Empty Scene Examples](#empty-scene-examples)
@@ -60,10 +60,11 @@ An easy-to-use Source Engine inspired game console for Godot with the ability to
 6. Select the newly created `Console` node and, in the editor, set the layout to 'Full Rect' (`Layout > Full Rect`).
 7. Ensure that your Godot project has keys assigned to (`Project > Project Settings... > Input Map`):
     1. 'dev_toggle_console' -- to toggle the console open/closed
-    2. 'ui_cancel' -- to close the console   (NB: assigned by default)
-    3. 'ui_up' -- to navigate up in command history  (NB: assigned by default)
-    4. 'ui_down' -- to navigate down in command history  (NB: assigned by default)
-    5. 'ui_enter' -- to enter a command  (NB: assigned by default)
+    2. 'ui_focus_next' -- to autocomplete   (NB: assigned by TAB default)
+    3. 'ui_cancel' -- to close the console   (NB: assigned by ESC default)
+    4. 'ui_up' -- to navigate up in command history  (NB: assigned UP by default)
+    5. 'ui_down' -- to navigate down in command history  (NB: assigned DOWN by default)
+    6. 'ui_enter' -- to enter a command  (NB: assigned by default)
 8. Enjoy! 
 
 # Usage
@@ -174,9 +175,8 @@ Comming soon:
 
 # Future
 Todo:
-- Remove need for autoload script
+- Remove need for autoload script?
 - Implement command history
-- Add command tab-completion
 
 
 # LICENSE

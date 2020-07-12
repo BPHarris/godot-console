@@ -33,7 +33,6 @@ Developer Notes:
 
 Todo:
 	- history
-	- tab completion
 
 """
 
