@@ -304,7 +304,7 @@ func _autocomplete() -> int:
 	matching_commands.sort_custom(AutocompleteMatchesSorter, "sort_ascending")
 	matching_command_ends.sort_custom(AutocompleteMatchesSorter, "sort_ascending")
 	
-	# Get shared segment of matches (i.e. matches = [show_x, show_y], => shared = show_)
+	# Get shared segment of matches (e.g. matches = [show_x, show_y], => shared = show_)
 	var shared := ""
 	for i in len(matching_command_ends[0]):
 		var c : String = matching_command_ends[0][i]
@@ -319,12 +319,13 @@ func _autocomplete() -> int:
 			break
 		shared += c
 	
-	# Jump to shared (i.e. input = "sh", matches = (show_x, show_y) => input' = "show_")
+	# Jump to shared (e.g. input = "sh", matches = (show_x, show_y) => input' = "show_")
 	if shared:
 		input.append_at_cursor(shared)
 		return OK
 	
-	# Nothing shared, but there are matches, so show matches
+	# There are matches, but they share nothing so can't progress, show matches to user
+	# e.g. input = "n", matches = ["name", "none"], 2+ mutex. options -> can't add autocomplete
 	var r := str(matching_commands)
 	return write(r.substr(1, len(r) - 2), "\n[b][color=green]Autocomplete: [/color][/b]", "")
 
