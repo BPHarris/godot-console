@@ -177,6 +177,7 @@ Comming soon:
 Todo:
 - Remove need for autoload script?
 - Implement command history
+- Add aliases?
 
 
 # LICENSE
