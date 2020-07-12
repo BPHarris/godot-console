@@ -37,6 +37,7 @@ Todo:
 """
 
 extends Control
+class_name GDConsole
 
 
 signal console_opened
@@ -85,19 +86,21 @@ func _ready() -> void:
 func _add_default_commands() -> void:
 	"""Add the console's default commands."""
 	add_command(
-		"help", self, "_command_help", [["command_name", TYPE_STRING]],
+		"help", [["command_name", TYPE_STRING]],
+		self, "_command_help",
 		"display the given command's help message")
 	
-	add_command("clear", self, "_command_clear", [], "clear the console output")
-	add_command("list",  self, "_command_list",  [], "list registered commands")
-	add_command("exit",  self, "_command_exit",  [], "exit the current console session")
-	add_command("quit",  self, "_command_quit",  [], "quit the game")
+	add_command("clear", [], self, "_command_clear", "clear the console output")
+	add_command("list",  [], self, "_command_list",  "list registered commands")
+	add_command("exit",  [], self, "_command_exit",  "exit the current console session")
+	add_command("quit",  [], self, "_command_quit",  "quit the game")
 
-	add_command("echo", self, "_command_echo", [["output", TYPE_NIL]], "echo the given argument")
+	add_command("echo", [["output", TYPE_NIL]], self, "_command_echo", "echo the given argument")
 	
-	add_command("print_tree", self, "_command_print_tree", [], "print the scene tree")
+	add_command("print_tree", [], self, "_command_print_tree", "print the scene tree")
 	add_command(
-		"print_children", self, "_command_print_children", [["node", TYPE_NODE_PATH]],
+		"print_children", [["node", TYPE_NODE_PATH]],
+		self, "_command_print_children",
 		"recursively print the given node's children")
 
 
@@ -115,9 +118,8 @@ func _input(event : InputEvent):
 
 
 func add_command(
-	name : String,
-	parent_node : Object, method_name : String = "",
-	command_arguments : Array = [],
+	name : String,             command_arguments : Array,
+	parent_node : Object,      method_name : String = "",
 	description : String = "", help : String = ""
 ) -> void:
 	"""Add the given command to the console's repertoire.
@@ -177,17 +179,17 @@ func write_error(error_code : int, error_message : String) -> int:
 	return write(error_code_prefix + error_message)
 
 
-func response_empty() -> CommandResponse:
+static func response_empty() -> CommandResponse:
 	"""Short-hand for the empty response."""
 	return CommandResponse.new()
 
 
-func response_error(error_message : String) -> CommandResponse:
+static func response_error(error_message : String) -> CommandResponse:
 	"""Short-hand for an error response."""
 	return CommandResponse.new(CommandResponse.ResponseType.ERROR, error_message)
 
 
-func response_result(result : String) -> CommandResponse:
+static func response_result(result : String) -> CommandResponse:
 	"""Short-hand for a standard result."""
 	return CommandResponse.new(CommandResponse.ResponseType.RESULT, result)
 
