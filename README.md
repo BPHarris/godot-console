@@ -58,13 +58,7 @@ An easy-to-use Source Engine inspired game console for Godot with autocomplete a
     ![Console Scene Example](Resources/console_scene_example.png)
     
 6. Select the newly created `Console` node and, in the editor, set the layout to 'Full Rect' (`Layout > Full Rect`).
-7. Ensure that your Godot project has keys assigned to (`Project > Project Settings... > Input Map`):
-    1. 'dev_toggle_console' -- to toggle the console open/closed
-    2. 'ui_focus_next' -- to autocomplete   (NB: assigned by TAB default)
-    3. 'ui_cancel' -- to close the console   (NB: assigned by ESC default)
-    4. 'ui_up' -- to navigate up in command history  (NB: assigned UP by default)
-    5. 'ui_down' -- to navigate down in command history  (NB: assigned DOWN by default)
-    6. 'ui_enter' -- to enter a command  (NB: assigned ENTER/RETURN by default)
+7. Ensure that your Godot project has a key assigned to 'dev_toggle_console' (`Project > Project Settings... > Input Map`)
 8. Enjoy! 
 
 # Usage

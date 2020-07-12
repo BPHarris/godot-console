@@ -25,12 +25,9 @@ var help : String
 
 
 func _init(
-	name : String,
-	parent : Node,
-	method_name : String,
-	command_arguments : Array = [],
-	description : String = '',
-	help : String = ''
+	name : String,              command_arguments : Array,
+	parent : Node,              method_name : String,
+	description : String = "",  help : String = ""
 ) -> void:
 	"""Initialise new Command instance."""
 	self.name = name
@@ -39,7 +36,7 @@ func _init(
 	self.command_arguments = command_arguments
 	
 	if not description:
-		description = 'no description given'
+		description = "no description given"
 	self.description = description
 	
 	if not help:
@@ -52,24 +49,22 @@ func _generate_help_string() -> String:
 	
 	Format:
 		command_name <arg : int> <other_arg : string> ... - description
-	
 	"""
-	var help_string := '[color=green]' + self.name + '[/color]'
+	var help_string := "[color=green]" + self.name + "[/color]"
 	
 	for argument in self.command_arguments:
-		var name_formatted : String = '[color=white]' + argument[0] + '[/color]'
-		var type_formatted : String = '[color=blue]' + Types.get_type_name(argument[1]) + '[/color]'
+		var name_formatted : String = "[color=white]" + argument[0] + "[/color]"
+		var type_formatted : String = "[color=blue]" + Types.get_type_name(argument[1]) + "[/color]"
 		
-		help_string += ' <' + name_formatted + ' : ' + type_formatted + '>'
+		help_string += " <" + name_formatted + " : " + type_formatted + ">"
 	
-	help_string += ' - ' + self.description
+	help_string += " - " + self.description
 	
 	return help_string
 
 
 func execute(arguments_with_types : Array) -> CommandResponse:
-	"""Execute the command and return the response."""
-	
+	"""Execute the command and return the response."""	
 	var arguments := []
 	for argument in arguments_with_types:
 		arguments.append(argument[0])

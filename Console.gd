@@ -44,13 +44,6 @@ signal console_opened
 signal console_closed
 
 
-export(String) var toggle_console_action := "dev_toggle_console"
-export(String) var autocomplete_action := "ui_focus_next"
-export(String) var exit_console_action := "ui_cancel"
-export(String) var history_up_action := "ui_up"
-export(String) var history_down_action := "ui_down"
-
-
 onready var console_scene := preload("res://addons/godot_console/Console/Console.tscn")
 onready var output : RichTextLabel
 onready var input : LineEdit
@@ -105,15 +98,15 @@ func _add_default_commands() -> void:
 
 
 func _input(event : InputEvent):
-	if event.is_action_pressed(toggle_console_action):
+	if event.is_action_pressed("dev_toggle_console"):
 		_on_toggle_console()
 		get_tree().set_input_as_handled()
 	
-	if event.is_action_pressed(exit_console_action) and visible:
+	if event.is_action_pressed("ui_cancel") and visible:
 		visible = false
 		get_tree().set_input_as_handled()
 	
-	if event.is_action_pressed(autocomplete_action):
+	if event.is_action_pressed("ui_focus_next"):
 		_autocomplete()
 
 
@@ -134,7 +127,6 @@ func add_command(
 		ERR_ALREADY_IN_USE - if console command with given name already registered
 		OK - if successful
 	"""
-	
 	assert(not name == "", "must supply a command name")
 	assert(parent_node, "parent node can't be null")
 	assert(parent_node.has_method(method_name), "parent has no method '%s'" % method_name)
@@ -146,7 +138,7 @@ func add_command(
 	# TODO: Check argument types are legal
 	
 	Globals.console_commands[name] = \
-		Command.new(name, parent_node, method_name, command_arguments, description, help)
+		Command.new(name, command_arguments, parent_node, method_name, description, help)
 
 
 func write(text : String, prefix : String = "\n", suffix : String = "") -> int:
@@ -180,17 +172,17 @@ func write_error(error_code : int, error_message : String) -> int:
 
 
 static func response_empty() -> CommandResponse:
-	"""Short-hand for the empty response."""
+	"""Shorthand for the empty response."""
 	return CommandResponse.new()
 
 
 static func response_error(error_message : String) -> CommandResponse:
-	"""Short-hand for an error response."""
+	"""Shorthand for an error response."""
 	return CommandResponse.new(CommandResponse.ResponseType.ERROR, error_message)
 
 
 static func response_result(result : String) -> CommandResponse:
-	"""Short-hand for a standard result."""
+	"""Shorthand for a standard result."""
 	return CommandResponse.new(CommandResponse.ResponseType.RESULT, result)
 
 
@@ -331,10 +323,8 @@ func _command_clear() -> CommandResponse:
 func _command_help(command_name: String = "help") -> CommandResponse:
 	var command : Command = Globals.console_commands.get(command_name)
 	
-	# If no such command, return error
 	if not command:
 		return response_error("no command '[color=green]%s[/color]'" % command_name)
-	
 	return response_result(command.help)
 
 

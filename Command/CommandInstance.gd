@@ -17,12 +17,12 @@ class_name CommandInstance
 
 
 var status : int = OK
-var error_message : String = ''
+var error_message : String = ""
 
 var command_name : String
 var command_arguments : Array
 
 
-func _init(command_name : String = '', command_arguments : Array = []) -> void:
+func _init(command_name : String = "", command_arguments : Array = []) -> void:
 	self.command_name = command_name
 	self.command_arguments = command_arguments

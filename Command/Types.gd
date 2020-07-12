@@ -24,12 +24,12 @@ class_name Types
 
 
 const supported_types := {
-	TYPE_NIL        : 'Variant',
-	TYPE_BOOL       : 'bool',
-	TYPE_INT        : 'int',
-	TYPE_REAL       : 'float',
-	TYPE_STRING     : 'String',
-	TYPE_NODE_PATH  : 'NodePath',
+	TYPE_NIL        : "Variant",
+	TYPE_BOOL       : "bool",
+	TYPE_INT        : "int",
+	TYPE_REAL       : "float",
+	TYPE_STRING     : "String",
+	TYPE_NODE_PATH  : "NodePath",
 }
 
 
@@ -40,15 +40,15 @@ static func is_supported(type : int) -> bool:
 
 static func get_type_name(type : int) -> String:
 	"""Return the name of the given type."""
-	return supported_types.get(type, 'unsupported_type')
+	return supported_types.get(type, "unsupported_type")
 
 
 static func get_value(string : String):
 	"""Return the value represented by the given string."""
 	# Boolean
-	if string == 'true':
+	if string == "true":
 		return true
-	if string == 'false':
+	if string == "false":
 		return false
 	
 	# Int
@@ -60,11 +60,11 @@ static func get_value(string : String):
 		return float(string)
 	
 	# The empty string
-	if string == '':
+	if string == "":
 		return string
 	
 	# Node reference
-	if string[0] == '@':
+	if string[0] == "@":
 		return NodePath(string.substr(1))
 	
 	# Short/long-string or other
@@ -83,10 +83,7 @@ static func get_value_and_type(string : String) -> Array:
 
 
 static func equivalent(type_a : int, type_b : int) -> bool:
-	"""Return true if two types are equivalent.
-	
-	Follows typing rules in __doc__.
-	"""
+	"""Return true if two types are equivalent. See __doc__ for typing rules."""
 	if type_a == TYPE_NIL:
 		return true
 	return type_a == type_b
