@@ -47,6 +47,7 @@ signal console_closed
 
 # Console key bindings
 export(String) var input_action_toggle_console := 'dev_toggle_console'
+export(String) var input_action_autocomplete := 'ui_focus_next'
 export(String) var input_action_exit_console := 'ui_cancel'
 export(String) var input_action_history_up := 'ui_up'
 export(String) var input_action_history_down := 'ui_down'
@@ -135,6 +136,9 @@ func _input(event : InputEvent):
 	if event.is_action_pressed(input_action_exit_console) and visible:
 		visible = false
 		get_tree().set_input_as_handled()
+	
+	if event.is_action_pressed(input_action_autocomplete):
+		_autocomplete()
 
 
 func add_command(
@@ -315,6 +319,61 @@ func _on_toggle_console() -> void:
 	
 	_input.clear()
 	history_pointer = 0
+
+
+class AutocompleteMatchesSorter:
+	"""Custom sorter for autocomplete matches.
+	This is dumb, let me lambda >:(. Or, at least, put the class in _autocomplete."""
+	static func sort_ascending(a : String, b : String) -> bool:
+		if len(a) < len(b):
+			return true
+		return false
+	static func sort_descending(a : String, b : String) -> bool:
+		return sort_ascending(b, a)
+
+
+func _autocomplete() -> void:
+	"""Autocomplete the currently input text."""
+	if not _input.text:
+		return
+	
+	# Get matching commands
+	var matching_commands := []
+	var matching_command_ends := []
+	for command in Globals.console_commands.keys():
+		if command.begins_with(_input.text):
+			matching_commands.append(command)
+			matching_command_ends.append(command.substr(_input.text.length()))
+	
+	if not matching_commands:
+		return
+	
+	matching_commands.sort_custom(AutocompleteMatchesSorter, "sort_ascending")
+	matching_command_ends.sort_custom(AutocompleteMatchesSorter, "sort_ascending")
+	
+	# Get shared segment of matches (i.e. matches = [show_x, show_y], => shared = show_)
+	var shared := ""
+	for i in len(matching_command_ends[0]):
+		var c : String = matching_command_ends[0][i]
+		var c_in_all := true
+		
+		for command in matching_command_ends.slice(1, len(matching_command_ends)):
+			if not command[i] == c:
+				c_in_all = false
+				break
+		
+		if not c_in_all:
+			break
+		shared += c
+	
+	# Jump to shared (i.e. input = 'sh', matches = (show_x, show_y) => input' = 'show_')
+	if shared:
+		_input.append_at_cursor(shared)
+		return
+	
+	# Nothing shared, but there are matches, so show matches
+	var results := str(matching_commands)
+	write(results.substr(1, len(results) - 2), '\n[b][color=green]Autocomplete: [/color][/b]', '')
 
 
 func _command_clear() -> CommandResponse:
